@@ -2,13 +2,16 @@ public class Main {
 
 	public static void main(String[] args) 
 	{
-		int[] a = {2,1,8,1,2,8,1,2,3};
+		int[] a = {1,2,3,4,5,2,4,1,1,1,3,4,5,6};
         int[] b = {1, 3, 5, 6};
         
         Node<Integer> p1 = BuildList(a);
         Node<Integer> p2 = BuildList(b);
         
         System.out.println(ex3(8,p1));
+        System.out.println(ex4(p2));
+        
+        printlist(ex5(p1));
 	}
 	
 	public static void printlist(Node<Integer> l)
@@ -245,5 +248,46 @@ public class Main {
 	        p = p.getNext();
 	    }
 	    return count;
+	}
+	public static boolean ex4(Node<Integer> p)
+	{
+		while(p!=null)
+		{
+			if(ex4_Helper(p.getNext(),p.getValue())==false)
+			{
+				return false;
+			}
+			p = p.getNext();
+		}
+		return true;
+	}
+	public static boolean ex4_Helper(Node<Integer> p, int x)
+	{
+		while(p!=null)
+		{
+			if(p.getValue()==x)
+			{
+				return false;
+			}
+			p = p.getNext();
+		}
+		return true;
+	}
+	public static Node<Integer> ex5(Node<Integer> p)
+	{
+		System.out.println("Ex5 Answer: ");
+		Node<Integer> New = new Node<Integer>(-1);
+		Node<Integer> head = New;
+		while(p!=null)
+		{
+			if(ex4_Helper(head,p.getValue())==true)
+			{
+				Node<Integer> x = new Node<Integer>(p.getValue());
+				New.setNext(x);
+				New = New.getNext();
+			}
+			p = p.getNext();
+		}
+		return head.getNext();
 	}
 }
