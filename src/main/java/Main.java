@@ -1,162 +1,249 @@
-import java.util.Scanner;
+public class Main {
 
-class Main {
-    public static void main(String[] args) {
-        int[] arr1 = {1, 2, 3, 4, 5, 8};
-        int[] arr2 = {3, 7, 9, 10, 11};
-        int[] arr3 = {4, 2, 7, 4, 5};
-
-        Node<Integer> list1 = buildList(arr1);
-        Node<Integer> list2 = buildList(arr2);
-        Node<Integer> list3 = buildList(arr3);
-
-        printList(SelectionSort(list3));
-    }
-
-    public static Node<Integer> SortLists(Node<Integer> L1, Node<Integer> L2) {
-        Node<Integer> p1 = L1;
-        Node<Integer> p2 = L2;
-        Node<Integer> head3 = new Node<>(null);
-        Node<Integer> p3 = head3;
-
-        while (p1 != null && p2 != null) {
-            if (p1.getValue() == p2.getValue()) {
-                p3.setNext(new Node<>(p1.getValue()));
-                p3 = p3.getNext();
-                p3.setNext(new Node<>(p1.getValue()));
-                p1 = p1.getNext();
-                p2 = p2.getNext();
-            } else if (p1.getValue() > p2.getValue()) {
-                p3.setNext(new Node<>(p2.getValue()));
-                p2 = p2.getNext();
-            } else {
-                p3.setNext(new Node<>(p1.getValue()));
-                p1 = p1.getNext();
-            }
-            p3 = p3.getNext();
-        }
-
-        while (p1 != null) {
-            p3.setNext(new Node<>(p1.getValue()));
-            p1 = p1.getNext();
-            p3 = p3.getNext();
-        }
-
-        while (p2 != null) {
-            p3.setNext(new Node<>(p2.getValue()));
-            p2 = p2.getNext();
-            p3 = p3.getNext();
-        }
-
-        return head3.getNext();
-    }
-
-    public static Node<Integer> SelectionSort(Node<Integer> L1) {
-        if (L1 == null) return null;
-
-        Node<Integer> sortedHead = null;
-        Node<Integer> sortedTail = null;
-
-        while (L1 != null) {
-            Node<Integer> minNode = L1;
-            Node<Integer> p = L1.getNext();
-
-            while (p != null) {
-                if (p.getValue() < minNode.getValue()) {
-                    minNode = p;
-                }
-                p = p.getNext();
-            }
-
-            Node<Integer> newNode = new Node<>(minNode.getValue());
-
-            if (sortedHead == null) {
-                sortedHead = newNode;
-                sortedTail = newNode;
-            } else {
-                sortedTail.setNext(newNode);
-                sortedTail = newNode;
-            }
-
-            if (minNode == L1) {
-                L1 = L1.getNext();
-            } else {
-                Node<Integer> prev = L1;
-                while (prev.getNext() != minNode) {
-                    prev = prev.getNext();
-                }
-                prev.setNext(minNode.getNext());
-            }
-        }
-
-        return sortedHead;
-    }
-
-    public static Node<Integer> buildList(int[] arr) {
-        Node<Integer> head = new Node<>(arr[0]);
-        Node<Integer> p = head;
-        for (int i = 1; i < arr.length; i++) {
-            Node<Integer> newNode = new Node<>(arr[i]);
-            p.setNext(newNode);
-            p = newNode;
-        }
-        return head;
-    }
-
-    public static void printList(Node<Integer> head) {
-        Node<Integer> current = head;
-        while (current != null) {
-            System.out.println(current.getValue());
-            current = current.getNext();
+	public static void main(String[] args) 
+	{
+		int[] a = {2,1,8,1,2,8,1,2,3};
+        int[] b = {1, 3, 5, 6};
+        
+        Node<Integer> p1 = BuildList(a);
+        Node<Integer> p2 = BuildList(b);
+        
+        System.out.println(ex3(8,p1));
+	}
+	
+	public static void printlist(Node<Integer> l)
+    {
+        while (l != null)
+        {
+            System.out.println(l.getValue());
+            l = l.getNext();
         }
     }
+	
+	public static Node<Integer> BuildList(int []a)
+	{
+		Node<Integer> p = new Node<Integer>(a[0]);
+		Node<Integer> head = p;
+		for(int i=1;i<a.length;i++)
+		{
+			Node<Integer> x = new Node<Integer>(a[i]);
+			p.setNext(x);
+			p = p.getNext();
+		}
+		return head;
+	}
+	
+	public static Node<Integer> delete_node6(Node<Integer> p, int x)
+	{
+		if(p != null && p.getValue() == x)
+		{
+			return p.getNext();
+		}
+		
+		while(p != null && p.getNext() != null)
+		{
+			if(p.getNext().getValue() == x)
+			{
+				p.setNext(p.getNext().getNext());
+				return p;
+			}
+			p = p.getNext();
+		}
+		return p;
+	}
+	
+	public static Node<Integer> delete_node_7(Node<Integer> p, int x)
+	{
+		if(p == null || p.getNext() == null)
+		{
+			return null;
+		}
+		if(x == 1) {
+			return p.getNext();
+		}
+		for(int i = 0; i < x - 1; i++)
+		{
+			if(p.getNext() == null)
+			{
+				return p;
+			}
+			p = p.getNext();
+		}
+		p.setNext(p.getNext().getNext());
+		return p;
+	}
+	
+	public static Node<Integer> exe11(Node<Integer> p1, Node<Integer> p2)
+	{
+		while(p1 != null)
+		{
+			Node<Integer> p2C = p2;
+			while(p2C != null)
+			{
+				if(p1.getValue().equals(p2C.getValue()))
+				{
+					p1.setNext(p2C.getNext());
+				}
+				p2C = p2C.getNext();
+			}
+			p1 = p1.getNext();
+		}
+		return p1;
+	}
+	public static boolean ex8_all(Node<Integer> p, Node<Integer> p2)
+	{
+		if(p1 == null)
+		{
+			return true;
+		}
+		if(!helper(p.getValue(),p2))
+		{
+			return false;
+		}
+		return ex8_all(p.getNext(),p2);
+	}
+	public static void ex9(Node<Integer> p, Node<Integer> p2)
+	{
+		while(p.getNext()!=null)
+		{
+			if(helper(p.getValue(),p2))
+			{
+				System.out.println(p.getValue());
+			}
+			p = p.getNext();
+		}
+		return;
+	}
+	public static Node<Integer> ex10(Node<Integer> p, Node<Integer> p2)
+	{
+	    if(p == null)
+	    {
+	        return null;
+	    }
+	    Node<Integer> head = new Node<>(0);
+	    Node<Integer> l1 = head;
+	    while(p != null)
+	    {
+	        if(helper(p.getValue(), p2))
+	        {
+	            l1.setNext(new Node<>(p.getValue()));
+	            l1 = l1.getNext();
+	        }
+	        p = p.getNext();
+	    }
+	    return head.getNext();
+	}
 
-    public static boolean appearsRec(Node<Integer> l, int num) {
-        if (l == null) return false;
-        if (l.getValue() == num) return true;
-        return appearsRec(l.getNext(), num);
-    }
+	public static boolean helper(int v, Node<Integer> l2)
+	{
+		while(l2 != null)
+		{
+			if(l2.getValue()==v)
+			{
+				return true;
+			}
+			l2 = l2.getNext();
+		}
+		return false;
+	}
+	public static Node<Integer> ex_2(Node<Integer> p1, Node<Integer> p2) {
+	    Node<Integer> head = new Node<>(0);
+	    Node<Integer> l1 = head;
+	    
+	    while (p1 != null && p2 != null) 
+	    {
+	        if (p1.getValue() <= p2.getValue()) 
+	        {
+	            l1.setNext(p1);
+	            p1 = p1.getNext();
+	        } 
+	        else 
+	        {
+	            l1.setNext(p2);
+	            p2 = p2.getNext();
+	        }
+	        l1 = l1.getNext();
+	    }
 
-    public static Node<Integer> deleteAt(Node<Integer> l, int num) {
-        if (num < 1) return l;
-        if (num == 1) return l.getNext();
+	    if (p1 != null) 
+	    {
+	        l1.setNext(p1);
+	    }
 
-        Node<Integer> p = l;
-        int i = 1;
-        while (p != null) {
-            if (i == num - 1) {
-                p.setNext(p.getNext().getNext());
-                break;
-            }
-            p = p.getNext();
-            i++;
-        }
-        return l;
-    }
-}
+	    if (p2 != null) 
+	    {
+	        l1.setNext(p2);
+	    }
 
-class Node<T> {
-    private T value;
-    private Node<T> next;
+	    return head.getNext();
+	}
 
-    public Node(T value) {
-        this.value = value;
-        this.next = null;
-    }
 
-    public T getValue() {
-        return value;
-    }
+	public static int ex_2_helper(Node<Integer> p)
+	{
+		int min = 0;
+		while(p.getNext()!=null)
+		{
+			if(p.getValue()>p.getNext().getValue())
+			{
+				min = p.getValue();
+			}
+		}
+		return min;
+	}
+	public static int ex3(int x, Node<Integer> p) {
+	    boolean Con = true;
+	    int sum = 0;
+	    int Start = 0;
 
-    public void setValue(T value) {
-        this.value = value;
-    }
+	    while (p.getNext() != null && Con == true) 
+	    {
+	        if (p.getValue() == x) 
+	        {
+	            sum = sum + Start;
+	            p = p.getNext();
+	            Con = false;
+	        } 
+	        else
+	        {
+	            Start = Start + 1;
+	            p = p.getNext();
+	        }
+	    }
 
-    public Node<T> getNext() {
-        return next;
-    }
+	    while (p != null) 
+	    {
+	        if (p.getValue() == x && IsLastTimeX(p.getNext(), x) == true) 
+	        {
+	            sum = sum + CountLast(p.getNext());
+	        }
+	        p = p.getNext();
+	    }
 
-    public void setNext(Node<T> next) {
-        this.next = next;
-    }
+	    return sum;
+	}
+
+	public static boolean IsLastTimeX(Node<Integer> p, int x) 
+	{
+	    while (p != null) 
+	    {
+	        if (p.getValue() == x) 
+	        {
+	            return false;
+	        }
+	        p = p.getNext();
+	    }
+	    return true;
+	}
+
+	public static int CountLast(Node<Integer> p)
+	{
+	    int count = 0;
+	    while (p != null) 
+	    {
+	        count++;
+	        p = p.getNext();
+	    }
+	    return count;
+	}
 }
